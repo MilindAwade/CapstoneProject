@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional Product Recommendation System with AI-powered suggestions">
+  <meta name="keywords" content="recommendation, products, AI, machine learning, suggestions">
+  <meta name="author" content="Milind Awade">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Title -->
+  <title>AI Product Recommendation System</title>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="container">
+      <h1>Product Recommendation System</h1>
+      <p class="lead">Discover personalized product recommendations powered by AI</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="content">
+    <div class="container">
+      <!-- Form Section -->
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card form-card">
+            <form method="POST" action="/recommend" id="recommendationForm">
+              <div class="mb-4">
+                <label for="User Name" class="form-label">Enter Username</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <input type="text" class="form-control" id="User Name" name="User Name" 
+                         placeholder="Enter username" required autocomplete="username">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary w-100" id="submitBtn">
+                <span class="btn-text">Get Recommendations</span>
+                <span class="loading" style="display: none;"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample Usernames -->
+      <div class="sample-usernames">
+        <div class="sample-label">Try these sample usernames:</div>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <kbd onclick="setUsername('amanda')">amanda</kbd>
+          <kbd onclick="setUsername('david')">david</kbd>
+          <kbd onclick="setUsername('jill')">jill</kbd>
+          <kbd onclick="setUsername('kimmie')">kimmie</kbd>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div class="row justify-content-center">
+        <div class="col-12">
+          {% if text %}
+          <div class="alert alert-success text-center" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ text }}
+          </div>
+          {% endif %}
+
+          {% if row_data %}
+          <div class="table-container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  {% for col in column_names %}
+                  <th>{{ col }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in row_data %}
+                <tr>
+                  {% for cell in row %}
+                  <td>{{ cell }}</td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 AI Product Recommendation System - Developed By Milind Awade</p>
+      <p class="small">Powered by Advanced Machine Learning Algorithms</p>
+    </div>
+  </footer>
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Bootstrap JS with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <!-- Enhanced JavaScript -->
+  <script>
+    // Enhanced setUsername function with smooth animations
+    function setUsername(username) {
+      const input = document.getElementById('User Name');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      // Add smooth transition effect
+      input.style.transform = 'scale(1.05)';
+      input.value = username;
+      
+      setTimeout(() => {
+        input.style.transform = 'scale(1)';
+        // Show loading state
+        showLoading();
+        // Submit form
+        document.getElementById('recommendationForm').submit();
+      }, 200);
+    }
+
+    // Loading state management
+    function showLoading() {
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const loading = submitBtn.querySelector('.loading');
+      
+      btnText.style.display = 'none';
+      loading.style.display = 'inline-block';
+      submitBtn.disabled = true;
+    }
+
+    // Form submission with loading state
+    document.getElementById('recommendationForm').addEventListener('submit', function(e) {
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const loading = submitBtn.querySelector('.loading');
+      
+      if (btnText && loading) {
+        btnText.style.display = 'none';
+        loading.style.display = 'inline-block';
+        submitBtn.disabled = true;
+      }
+    });
+
+    // Add smooth scroll behavior for better UX
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add entrance animations to elements
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+      });
+
+      // Add hover effects to table rows
+      const tableRows = document.querySelectorAll('tbody tr');
+      tableRows.forEach(row => {
+        row.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.02)';
+        });
+        row.addEventListener('mouseleave', function() {
+          this.style.transform = 'scale(1)';
+        });
+      });
+    });
+
+    // Add keyboard navigation for sample usernames
+    document.addEventListener('keydown', function(e) {
+      if (e.key >= '1' && e.key <= '4') {
+        const usernames = ['amanda', 'david', 'jill', 'kimmie'];
+        const index = parseInt(e.key) - 1;
+        if (usernames[index]) {
+          setUsername(usernames[index]);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
