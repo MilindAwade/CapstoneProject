@@ -141,7 +141,7 @@ Run the Flask app locally by following the setup instructions above.
 
 ### AWS Lightsail Deployment
 
-Here are 5 concise steps to deploy a Python Flask application on AWS Lightsail:
+Steps to deploy a Python Flask application on AWS Lightsail:
 
 ---
 
@@ -201,7 +201,7 @@ sentiment-based-recommendations/
 │   ├── tfidf_transformer.pkl
 ├── static/                   # Static assets directory
 │   └── css/
-│       └── style.css         # Custom CSS with professional blue-grey theme
+│       └── style.css         # Custom CSS 
 ├── templates/                # Flask HTML templates
 │   └── index.html            # Main application page with modern UI
 ├── requirements.txt          # Python dependencies
