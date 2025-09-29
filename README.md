@@ -1,6 +1,6 @@
 # Sentiment-Based Product Recommendation System
 
-URL : http://.....
+URL : https://tinyurl.com/437rv6e6
 
 This repository contains a **Sentiment-Based Product Recommendation System**, which combines **Collaborative Filtering** techniques and **Sentiment Analysis** to recommend products based on user preferences and sentiment from reviews. The system includes a Flask web application deployed on **AWS Lightsail** for live interaction.
 
